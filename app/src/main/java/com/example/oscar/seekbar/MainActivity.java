@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     SeekBar seekBar;
     TextView textView2;
 
+    int progress=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,36 +22,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         seekBar=(SeekBar)findViewById(R.id.seekBar);
+        seekBar.setProgress(progress);
+        seekBar.setMax(10);
+
         textView= (TextView)findViewById(R.id.textView);
+        textView.setText(""+progress);
+
         textView2= (TextView)findViewById(R.id.textView2);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-            private Toast toastStart = Toast.makeText(MainActivity.this, getText(R.string.app_name), Toast.LENGTH_SHORT);
-            private Toast toastStop = Toast.makeText(MainActivity.this, getText(R.string.app_name), Toast.LENGTH_SHORT);
 
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser)
             {
-                textView.setText(progress + 1 + "");
+                progress=i;
+                textView.setText(i+ "");
             }
 
 
             @Override
             public void onStartTrackingTouch(SeekBar arg0)
             {
-                toastStop.cancel();
-                toastStart.setGravity(Gravity.TOP|Gravity.LEFT, 60, 110);
-                toastStart.show();
+
             }
 
 
             @Override
             public void onStopTrackingTouch(SeekBar arg0)
             {
-                toastStart.cancel();
-                toastStop.setGravity(Gravity.TOP|Gravity.RIGHT, 60, 110);
-                toastStop.show();
                 textView2.setText( textView.getText().toString() + " x "+ " 1" + " = "+ (Integer.parseInt(textView.getText().toString())*1)+"\n"+
                         textView.getText().toString() + " x "+ " 2" + " = "+ (Integer.parseInt(textView.getText().toString())*2)+"\n"+
                         textView.getText().toString() + " x "+ " 3" + " = "+ (Integer.parseInt(textView.getText().toString())*3)+"\n"+
