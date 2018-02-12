@@ -2,17 +2,24 @@ package com.example.oscar.seekbar;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
 
     TextView textView;
     SeekBar seekBar;
-    TextView textView2;
+    ListView listView;
+    ArrayAdapter<String> adaptador;
 
     int progress=0;
+
+    ArrayList arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +30,16 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setProgress(progress);
         seekBar.setMax(10);
 
+
+        listView = (ListView)findViewById(R.id.list);
+
         textView= (TextView)findViewById(R.id.textView);
         textView.setText(""+progress);
 
-        textView2= (TextView)findViewById(R.id.textView2);
+        arrayList = new ArrayList<>();
+
+        adaptador = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
+
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -36,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 progress=i;
                 textView.setText(i+ "");
+
             }
 
 
@@ -49,17 +63,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar arg0)
             {
-                textView2.setText( textView.getText().toString() + " x "+ " 1" + " = "+ (Integer.parseInt(textView.getText().toString())*1)+"\n"+
-                        textView.getText().toString() + " x "+ " 2" + " = "+ (Integer.parseInt(textView.getText().toString())*2)+"\n"+
-                        textView.getText().toString() + " x "+ " 3" + " = "+ (Integer.parseInt(textView.getText().toString())*3)+"\n"+
-                        textView.getText().toString() + " x "+ " 4" + " = "+ (Integer.parseInt(textView.getText().toString())*4)+"\n"+
-                        textView.getText().toString() + " x "+ " 5" + " = "+ (Integer.parseInt(textView.getText().toString())*5)+"\n"+
-                        textView.getText().toString() + " x "+ " 6" + " = "+ (Integer.parseInt(textView.getText().toString())*6)+"\n"+
-                        textView.getText().toString() + " x "+ " 7" + " = "+ (Integer.parseInt(textView.getText().toString())*7)+"\n"+
-                        textView.getText().toString() + " x "+ " 8" + " = "+ (Integer.parseInt(textView.getText().toString())*8)+"\n"+
-                        textView.getText().toString() + " x "+ " 9" + " = "+ (Integer.parseInt(textView.getText().toString())*9)+"\n"+
-                        textView.getText().toString() + " x "+ " 10" + " = "+ (Integer.parseInt(textView.getText().toString())*10)+"\n");
+                arrayList.clear();
+                arrayList.add( textView.getText().toString() + " x "+ " 1" + " = "+ (Integer.parseInt(textView.getText().toString())*1));
+                arrayList.add( textView.getText().toString() + " x "+ " 2" + " = "+ (Integer.parseInt(textView.getText().toString())*2));
+                arrayList.add( textView.getText().toString() + " x "+ " 3" + " = "+ (Integer.parseInt(textView.getText().toString())*3));
+                arrayList.add( textView.getText().toString() + " x "+ " 4" + " = "+ (Integer.parseInt(textView.getText().toString())*4));
+                arrayList.add( textView.getText().toString() + " x "+ " 5" + " = "+ (Integer.parseInt(textView.getText().toString())*5));
+                arrayList.add( textView.getText().toString() + " x "+ " 6" + " = "+ (Integer.parseInt(textView.getText().toString())*6));
+                arrayList.add( textView.getText().toString() + " x "+ " 7" + " = "+ (Integer.parseInt(textView.getText().toString())*7));
+                arrayList.add( textView.getText().toString() + " x "+ " 8" + " = "+ (Integer.parseInt(textView.getText().toString())*8));
+                arrayList.add( textView.getText().toString() + " x "+ " 9" + " = "+ (Integer.parseInt(textView.getText().toString())*9));
+                arrayList.add( textView.getText().toString() + " x "+ " 10" + " = "+ (Integer.parseInt(textView.getText().toString())*10));
 
+                listView.setAdapter(adaptador);
             }
 
 
